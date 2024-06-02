@@ -28,11 +28,12 @@ class NewVisitorTest(unittest.TestCase):
 
         # 他在文本输入框中输入了“Buy flowers”
         inputbox.send_keys('Buy flowers')
+        time.sleep(3)
 
         # 他按了回车键键后更新了
         # 待办事项表格中显示"1: Buy flowers"
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(10)
 
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')
