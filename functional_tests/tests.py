@@ -78,7 +78,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # 他注意到清单有一个唯一的URL
         zhangsan_list_url = self.browser.current_url
-        self.assertRegex(zhangsan_list_url, '/list/.+')
+        self.assertRegex(zhangsan_list_url, '/lists/.+')
 
         # 现在一个新用户王五访问网站
         # 我们使用一个新浏览器会话
@@ -90,8 +90,8 @@ class NewVisitorTest(LiveServerTestCase):
         # 页面中看不到张三的清单
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element(By.TAG_NAME, 'body').text
-        self.assertIn('Buy flowers', page_text)
-        self.assertIn('Give a gift to Lisi', page_text)
+        self.assertNotIn('Buy flowers', page_text)
+        self.assertNotIn('Give a gift to Lisi', page_text)
 
         # 王五输入一个新代办事项，新建一个清单
         inputbox = self.browser.find_element(By.ID, 'id_new_item')
@@ -101,7 +101,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         # 王五获得了他的唯一URL
         wangwu_list_url = self.browser.current_url
-        self.assertRegex(wangwu_list_url, '/list/.+')
+        self.assertRegex(wangwu_list_url, '/lists/.+')
         self.assertNotEqual(wangwu_list_url, zhangsan_list_url)
 
         # 这个页面还是没有张三的清单
