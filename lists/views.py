@@ -1,19 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Item
+from .models import Item,List
 
-'''
-def home_page(request):
-    item = Item()
-    # 从 request.POST 字典中获取键 item_text 对应的值，并将其赋值给 item.text
-    item.text = request.POST.get('item_text', '')
-    item.save()
-
-    return render(request, 'home.html', {
-        'new_item_text': item.text if request.method == 'POST' else ''
-    })
-    # return HttpResponse('<html><title>To-Do lists</title></html>')
-'''
 def home_page(request):
     '''if request.method == 'POST':
         Item.objects.create(text=request.POST['item_text'])
@@ -25,5 +13,6 @@ def view_list(request):
     return render(request, 'list.html', {'items': items})
 
 def new_list(request):
-    Item.objects.create(text=request.POST['item_text'])
+    list_user = List.objects.create()
+    Item.objects.create(text=request.POST['item_text'], list=list_user)
     return redirect('/lists/the-new-page/')
